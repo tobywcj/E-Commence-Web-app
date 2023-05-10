@@ -1,0 +1,99 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+<div class="row mb-3">
+    <div class="col-6">
+        <div class="card pt-3 px-3 mb-4">
+            <img src="<%= shop.image %>" class="card-img-top" alt="shop_image">
+
+            <div class="card-body">
+              <h5 class="card-title"><%= shop.name %></h5>
+              <h6 class="card-text text-muted"><%= shop.category %> Shop</h6>
+            </div>
+
+            <div class="card-body">
+              <p class="card-text"><%= shop.description %></p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-muted">Location: <%= shop.location %></li>
+            </ul>
+
+            <div class="card-body">
+              <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a class="btn btn-info" role="button" aria-disabled="true" href="/shops">All Shops</a>
+                    <% if (currentUser && shop.author.equals(currentUser._id)) {%>
+                    <a class="card-link btn btn-secondary" href="/shops/<%= shop._id %>/edit">Edit</a>
+                </div>
+                <div>
+                    <form action="/shops/<%= shop._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer text-muted">
+              <p>Created by <%= shop.author.username %> on <%= shop.createdAt %></p>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-6">
+      <% if (currentUser) {%>
+      <h2 class="mb-3">Leave a Review</h2>
+
+          <form action="/shops/<%= shop._id %>/reviews" class="mb-3 validated-form" method="POST" novalidate>
+            <fieldset class="starability-coinFlip mb-3">
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+              <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+
+            <div class="mb-3">
+              <label class="form-label" for="body">Review</label>
+              <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+              <div class="valid-feedback">Right to go !!</div>
+            </div>
+
+            <button class="btn btn-success mb-3">Submit</button>
+          </form>
+      <% } %>
+          
+          <h2 class="mb-3">Reviews</h2>
+
+          <% for(let review of shop.reviews) {%>
+            <div class="card mb-3">
+              <div class="d-flex">
+                <div class="p-2 flex-grow-1">
+                  <!-- <h5 class="card-title">Rating: <%= review.rating %></h5> -->
+                  <p class="starability-result" data-rating="<%= review.rating %>">
+                    Rated: <%= review.rating %> stars
+                  </p>
+                  <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %></h6>
+                  <p class="card-text">Review: <%= review.body %></p>
+                </div>
+
+                <% if (currentUser && review.author.equals(currentUser._id)) {%>
+                <div class="p-2 align-self-end">
+                  <form action="/shops/<%= shop._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+    </div>
+
+</div>

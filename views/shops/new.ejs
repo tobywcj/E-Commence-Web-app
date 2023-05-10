@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">New Shop</h1>
+
+    <div class="col-6 offset-3">
+        <form action="/shops" method="POST" class="validated-form" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="name">Shop Name</label>
+                <input class="form-control" type="text" id="name" name="shop[name]" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="category">Category</label>
+                <input class="form-control" type="text" id="category" name="shop[category]" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="shop[location]" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="image">Image URL</label>
+                <input class="form-control" type="text" id="image" name="shop[image]" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="shop[description]" required></textarea>   
+                <div class="valid-feedback">Right to go !!</div> 
+            </div>
+            
+            <div class="mb-3">
+                <button class="btn btn-success">Add Shop</button>
+            </div>
+        </form>
+
+        <footer>
+            <a href="/shops">All Shops</a>
+        </footer>
+        
+    </div>
+</div>

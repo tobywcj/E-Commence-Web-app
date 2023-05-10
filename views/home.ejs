@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate') %>
+
+    <h1>Trending Products</h1>
+    <ul>
+        <% for (let product of products) {%>
+            <li>
+                <ul>
+                    <%= product.shoeName %>
+                </ul>
+                <ul>
+                    <%= product.retailPrice %>
+                </ul>
+                <ul>
+                    <img src= <%= product.thumbnail %> alt="The image of <%= product.shoeName %>">
+                </ul>
+            </li>
+            <% } %>
+    </ul>

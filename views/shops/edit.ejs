@@ -1,0 +1,41 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <h1 class="text-center">Edit Shop</h1>
+    <div class="col-6 offset-3">
+        <form action="/shops/<%= shop._id %>?_method=PUT" method="POST" class="validated-form" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="name">Shop Name</label>
+                <input class="form-control" type="text" id="name" name="shop[name]" value="<%= shop.name %>" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="category">Category</label>
+                <input class="form-control" type="text" id="category" name="shop[category]" value="<%= shop.category %>" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="shop[location]" value="<%= shop.location %>" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image URL</label>
+                <input class="form-control" type="text" id="image" name="shop[image]" value="<%= shop.image %>" required>
+                <div class="valid-feedback">Right to go !!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="shop[description]" required><%= shop.description %></textarea>
+                <div class="valid-feedback">Right to go !!</div>    
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-info">Update Shop</button>
+            </div>
+        </form>
+
+        <footer>
+            <a href="/shops/<%= shop._id %>">Back To Shop</a>
+        </footer>
+    </div>
+</div>
