@@ -2,43 +2,66 @@
 <link rel="stylesheet" href="/stylesheets/stars.css">
 
 <div class="row mb-3">
+
     <div class="col-6">
-        <div class="card pt-3 px-3 mb-4">
-            <img src="<%= shop.image %>" class="card-img-top" alt="shop_image">
+      
+      <div id="shopImageCarousel" class="carousel slide">
+        <div class="carousel-inner">
+          <% shop.images.forEach((img, i) => { %>
+          <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+            <img src="<%= img.url %>" class="d-block w-100" alt="">
+          </div>
+          <% }) %>
+        
+        <% if(shop.images.length > 1) { %>
+        <button class="carousel-control-prev" type="button" data-bs-target="#shopImageCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#shopImageCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <% } %>
+      </div>
 
-            <div class="card-body">
-              <h5 class="card-title"><%= shop.name %></h5>
-              <h6 class="card-text text-muted"><%= shop.category %> Shop</h6>
+      <div class="card pt-3 px-3 mb-4 mt-4">
+
+        <div class="card-body">
+          <h5 class="card-title"><%= shop.name %></h5>
+          <h6 class="card-text text-muted"><%= shop.category %> Shop</h6>
+        </div>
+
+        <div class="card-body">
+          <p class="card-text"><%= shop.description %></p>
+        </div>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-muted">Location: <%= shop.location %></li>
+        </ul>
+
+        <div class="card-body">
+          <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <a class="btn btn-info" role="button" aria-disabled="true" href="/shops">All Shops</a>
+                <% if (currentUser && shop.author.equals(currentUser._id)) {%>
+                <a class="card-link btn btn-secondary" href="/shops/<%= shop._id %>/edit">Edit</a>
             </div>
-
-            <div class="card-body">
-              <p class="card-text"><%= shop.description %></p>
-            </div>
-
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-muted">Location: <%= shop.location %></li>
-            </ul>
-
-            <div class="card-body">
-              <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a class="btn btn-info" role="button" aria-disabled="true" href="/shops">All Shops</a>
-                    <% if (currentUser && shop.author.equals(currentUser._id)) {%>
-                    <a class="card-link btn btn-secondary" href="/shops/<%= shop._id %>/edit">Edit</a>
-                </div>
-                <div>
-                    <form action="/shops/<%= shop._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-outline-danger">Delete</button>
-                    </form>
-                    <% } %>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-footer text-muted">
-              <p>Created by <%= shop.author.username %> on <%= shop.createdAt %></p>
+            <div>
+                <form action="/shops/<%= shop._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-outline-danger">Delete</button>
+                </form>
+                <% } %>
             </div>
           </div>
+        </div>
+
+        <div class="card-footer text-muted">
+          <p>Created by <%= shop.author.username %> on <%= shop.createdAt %></p>
+        </div>
+
+      </div>
+
     </div>
 
     <div class="col-6">
@@ -73,26 +96,25 @@
           <h2 class="mb-3">Reviews</h2>
 
           <% for(let review of shop.reviews) {%>
-            <div class="card mb-3">
-              <div class="d-flex">
-                <div class="p-2 flex-grow-1">
-                  <!-- <h5 class="card-title">Rating: <%= review.rating %></h5> -->
-                  <p class="starability-result" data-rating="<%= review.rating %>">
-                    Rated: <%= review.rating %> stars
-                  </p>
-                  <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %></h6>
-                  <p class="card-text">Review: <%= review.body %></p>
-                </div>
-
-                <% if (currentUser && review.author.equals(currentUser._id)) {%>
-                <div class="p-2 align-self-end">
-                  <form action="/shops/<%= shop._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                  </form>
-                </div>
-                <% } %>
+          <div class="card mb-3">
+            <div class="d-flex">
+              <div class="p-2 flex-grow-1">
+                <p class="starability-result" data-rating="<%= review.rating %>">
+                  Rated: <%= review.rating %> stars
+                </p>
+                <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %></h6>
+                <p class="card-text">Review: <%= review.body %></p>
               </div>
+
+              <% if (currentUser && review.author.equals(currentUser._id)) {%>
+              <div class="p-2 align-self-end">
+                <form action="/shops/<%= shop._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </div>
+              <% } %>
             </div>
+          </div>
           <% } %>
     </div>
 

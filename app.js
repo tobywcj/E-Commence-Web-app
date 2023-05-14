@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -41,7 +45,7 @@ app.engine('ejs', ejsMate); // tell Express use this engine instead of the defau
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // use path.join coz requiring auto find this directory during starting up the server
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // parse the request body, so that we can access the data from the form, but must use multipart data form if containing files in the form
 app.use(methodOverride('_method')); // pass in the string format for the query string
 app.use(morgan('dev'));
 

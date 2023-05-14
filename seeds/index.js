@@ -39,7 +39,7 @@ const seedDB = async () => {
     }
   
     try { 
-      const sneakers = await getMostPopularSneaker(100);
+      const sneakers = await getMostPopularSneaker(10);
       console.log(`Only return ${sneakers.length} sneakers`);
 
       for (let i = 0; i < sneakers.length ; i++) {
@@ -48,10 +48,15 @@ const seedDB = async () => {
           location: `${cities[random1000].city}, ${cities[random1000].state}`,
           name: `${sample(descriptors)} ${sample(places)}`,
           category: 'Sneakers',
-          image: sneakers[i].thumbnail,
           description: sneakers[i].description,
           author:'64529976a82196d2c2a3b0a9',
-          reviews: []
+          reviews: [],
+          images: [
+            {
+              url: sneakers[i].thumbnail,
+              filename: 'SneakerApp/ahfnenvca4tha00h2ubt'
+            }
+          ]
         });
         await shop.save();
       }

@@ -8,7 +8,7 @@ const { storeReturnTo } = require('../middleware');
 
 
 
-// USER routes
+//* USER routes
 
 router.route('/register')
     .get(users.renderRegisterForm)
