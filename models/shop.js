@@ -10,9 +10,13 @@ const imageSchema = new Schema({
     filename: String
 });
 
+// virtual property: modify the already existed data
 imageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 });
+
+
+const opts = { toJSON: { virtuals: true } }; // mongoose doesnt include virtual properties when you convert the doc to JSON
 
 const shopSchema = new Schema({
     name: {
@@ -28,10 +32,21 @@ const shopSchema = new Schema({
     location: {
         type: String,
     },
-    images: [imageSchema],
+    images: [imageSchema], // there is more than one image
     author: {
         type: Schema.Types.ObjectId,
         ref:'User'
+    },
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'], // 'location.type' must be 'Point', [A,B] => can be A or B
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
     },
     reviews: [
         {
@@ -44,7 +59,13 @@ const shopSchema = new Schema({
         default: Date.now,
         format: 'YYYY-MM-DD'
     }
-})
+}, opts);
+
+shopSchema.virtual('properties.popUpText').get(function () {
+    return `
+    <strong><a href="/shops/${this._id}">${this.name}</a></strong>
+    <p>${this.description.substring(0, 25)}...</p>`;
+});
 
 shopSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {

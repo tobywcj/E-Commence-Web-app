@@ -1,6 +1,14 @@
 // part of the MVC structure, modelling the data, rendering the views, controlling all the logic and query of the shops
+// Model is responsible for fetching and saving data to a database
+// The View is responsible for rendering the HTML page and handling user input.
+// The Controller is acts as an intermediary between the Model and View.It initializes the View, handles user input, and updates the View based on changes to the Model.
+
 const Shop = require('../models/shop');
 const { cloudinary } = require('../cloudinary');
+
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geoCoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 
 
@@ -16,7 +24,12 @@ module.exports.renderNewForm = (req, res) => {
 
 // object literal inside parentheses forces the JS interpreter to ensure that the arrow function returns an expression of an array of objects instead of a block of code
 module.exports.createShop = async (req, res) => {
+    const geoData = await geoCoder.forwardGeocode({
+        query: req.body.shop.location,
+        limit: 1
+    }).send() 
     const shop = new Shop(req.body.shop);
+    shop.geometry = geoData.body.features[0].geometry;
     shop.images = req.files.map(f => ({ url: f.path, filename: f.filename })); // map is used to return a new array of object, which is imutatable to the original array.
     shop.author = req.user._id;
     console.log(shop);
