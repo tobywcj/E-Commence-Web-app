@@ -8,7 +8,9 @@ const map = new mapboxgl.Map({
     zoom: 13 // starting zoom
 });
 
-const layerList = document.getElementById('menu');
+map.addControl(new mapboxgl.NavigationControl());
+
+const layerList = document.getElementById('map-menu');
 const inputs = layerList.getElementsByTagName('input');
 
 for (const input of inputs) {
