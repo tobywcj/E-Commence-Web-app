@@ -15,11 +15,11 @@ module.exports.register = async (req, res) => {
             if (err) return next(err);
             console.log('\nRegistered new user\n');
             req.flash('success', 'Welcome to Sneakers World!\n');
-            res.redirect('/home'); 
+            res.redirect('/'); 
         })
     } catch (err) {
         req.flash('error', err.message);
-        res.redirect('/register');
+        res.redirect('/users/register');
     }
 }
 
@@ -30,7 +30,7 @@ module.exports.renderLoginForm = (req, res) => {
 module.exports.login = async (req, res) => {
     const { username } = req.body;
     req.flash('success', `Welcome back ${username} !`);
-    const redirectUrl = res.locals.returnTo || '/home';
+    const redirectUrl = res.locals.returnTo || '/';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 }
@@ -39,6 +39,6 @@ module.exports.logout = (req, res) => {
     req.logout(function(err) {
         if (err) { return next(err) };
         req.flash('success', 'Goodbye!');
-        res.redirect('/home');
+        res.redirect('/');
     })
 }

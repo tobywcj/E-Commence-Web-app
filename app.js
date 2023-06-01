@@ -13,15 +13,20 @@ const flash = require('connect-flash');
 const sneaksAPI = require('sneaks-api');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 const ExpressError = require('./utils/ExpressError');
 const User = require('./models/user');
 
 // Organise routes
+const homeRoutes = require('./routes/home');
 const userRoutes = require('./routes/users');
 const shopRoutes = require('./routes/shops'); 
 const reviewRoutes = require('./routes/reviews');
 
+// ContentSecurityPolicy
+const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, imgSrcUrls, fontSrcUrls } = require('./utils/Urls');
 
 
 mongoose.set('strictQuery', true); // ensure that only the fields that are specified in your schema will be saved in the database
@@ -48,17 +53,36 @@ app.set('views', path.join(__dirname, 'views')); // use path.join coz requiring 
 app.use(express.urlencoded({ extended: true })); // parse the request body, so that we can access the data from the form, but must use multipart data form if containing files in the form
 app.use(methodOverride('_method')); // pass in the string format for the query string
 app.use(morgan('dev'));
+app.use(mongoSanitize());
+
+app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: ["'self'", "blob:", "data:", ...imgSrcUrls],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 app.use(express.static(path.join(__dirname, 'public'))); // use the public folder to serve static files like images, css, js, etc.
 
 
 // session middleware
 const sessionConfig = {
+    name: 'session', // name of the cookies
     secret: 'thisshouldnotbesecret', // secret is used to encrypt the session cookie
     resave: false, // resave = false means that if the session is not modified, then it won't be saved again
     saveUninitialized: true, // unintialized = new but not been modified, true means that if the user is not logged in, but still save the session
     cookie: {
-        httpOnly: true, // httpOnly = true means that the cookie cannot be accessed from the client side
+        httpOnly: true, // httpOnly = true means that the cookie cannot be accessed from the client side to prevent cross-site scripting attacks
+        // secure: true, // cookies can only be configured over https secure connections
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // the cookie will expire in 7 days
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -81,6 +105,7 @@ passport.deserializeUser(User.deserializeUser()); // converting a serialized use
 // before all the routes, so we can use for every route
 // must be after passport middleware to use req.user
 app.use((req, res, next) => {
+    // console.log(req.query);
     res.locals.currentUser = req.user; // req.user is available in every route ONLY IF in the session
     res.locals.success = req.flash('success'); // success is available in every route
     res.locals.error = req.flash('error'); // error is available in every route
@@ -88,20 +113,11 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/', userRoutes);
+// All routes
+app.use('/', homeRoutes);
+app.use('/users', userRoutes);
 app.use('/shops', shopRoutes); // use the shops router for the '/shops' routes
 app.use('/shops/:id/reviews', reviewRoutes); // use the reviews router for the '/reviews' routes
-
-
-
-
-app.get('/home', (req, res) => {
-    // getMostPopular(limit, callback) takes in a limit and returns an array of the current popular products curated by StockX
-    sneaks.getMostPopular(10, function (err, products) {
-        // res.send(products);
-        res.render('home', { products });
-    })
-})
 
 
 // catch all routes

@@ -10,7 +10,7 @@
         <div class="carousel-inner">
           <% shop.images.forEach((img, i) => { %>
                 <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                  <img src="<%= img.url %>" class="d-block w-100" alt="">
+                  <img crossorigin="anonymous" src="<%= img.url %>" class="d-block w-100" alt="">
                 </div>
                 <% }) %>
         </div>
@@ -141,11 +141,10 @@
 
 <!-- handing infomation from server side to client browser side -->
 <!-- OR using AJAX to send request after sending the code to the client -->
-<!-- use <%- %> inside script not <%= %>-->
 <!--  JavaScript code within the script block is interpreted by the browser's JavaScript engine, not by the EJS engine.  -->
 <script>
-  const mapToken = '<%- process.env.MAPBOX_TOKEN %>'; // recognized by the EJS engine and to include dynamic content in your JavaScript code
-  const shop = <%- JSON.stringify(shop) %>;
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>'; // use  <%- %> to treat it as JS to make variable to pass the info from ejs to js
+  const shop = <%- JSON.stringify(shop) %>; // recognized by the EJS engine and to include dynamic content in your JavaScript code
 </script>
 
 <!-- ejs only run html and ejs syntax in the its file, it will ignore the ejs syntax in js & CSS, let the browser run the code so the js file should not have any ejs embeddeded-->

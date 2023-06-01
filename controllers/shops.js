@@ -34,7 +34,7 @@ module.exports.createShop = async (req, res) => {
     shop.author = req.user._id;
     console.log(shop);
     await shop.save();
-    req.flash('success', 'Successfully made a new shop');
+    req.flash('success', `Successfully made a new shop called ${shop.name}`)
     res.redirect(`/shops/${shop._id}`);
 }
 

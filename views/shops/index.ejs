@@ -11,9 +11,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <% if(shop.images.length) { %>
-                    <img class="img-fluid rounded" src="<%= shop.images[0].url %>" alt="">
+                    <img crossorigin="anonymous" class="img-fluid rounded" src="<%= shop.images[0].url %>" alt="">
                     <% } else { %>
-                    <img class="img-fluid rounded" src="https://images.stockx.com/images/Gallery-Dept-Sun-Faded-English-Logo-Hoodie-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1660895550" alt="">
+                    <img crossorigin="anonymous" class="img-fluid rounded" src="https://images.stockx.com/images/Gallery-Dept-Sun-Faded-English-Logo-Hoodie-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1660895550" alt="">
                     <% } %>
                 </div>
                 <div class="col-md-8">
@@ -36,7 +36,7 @@
 
 <script>
   const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
-  const shops =  {features: <%- JSON.stringify(shops) %>}; // mongoose doesnt include virtual properties when you convert the doc to JSON
+  const shops =  {features: <%- JSON.stringify(shops) %>};
 </script>
 
 <Script src="/javascripts/clusterMap.js"></Script>

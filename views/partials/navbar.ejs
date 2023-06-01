@@ -7,16 +7,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav me-auto p-2">
-                <a class="nav-link" href="/home">Home</a>
+                <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/shops">Shops</a>
                 <a class="nav-link" href="/shops/new">New Shop</a>
             </div>
             <div class="navbar-nav p-2">
                 <% if(!currentUser) { %>
-                    <a href="/login" class="nav-link">Login</a>
-                    <a href="/register" class="nav-link">Register</a>
+                    <a href="/users/login" class="nav-link">Login</a>
+                    <a href="/users/register" class="nav-link">Register</a>
                 <% } else { %>
-                    <a href="/logout" class="nav-link">Logout</a>
+                    <a href="/users/logout" class="nav-link">Logout</a>
                 <% } %>
             </div>
         </div>
