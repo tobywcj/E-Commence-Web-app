@@ -1,9 +1,23 @@
-module.exports.index = (req, res) => {
-    // getMostPopular(limit, callback) takes in a limit and returns an array of the current popular products curated by StockX
-    // sneaks.getMostPopular(10, function (err, products) {
-    //     // res.send(products);
-    //     res.render('home', { products });
-    // })
+const sneaksAPI = require('sneaks-api');
+const sneaks = new sneaksAPI();
 
-    res.render('home');
+
+
+module.exports.index = async (req, res) => {
+    function getMostPopularProducts(limit) {
+        return new Promise((resolve, reject) => {
+            sneaks.getMostPopular(limit, function (err, products) {
+                if (err) {
+                    reject(err);
+                } else {
+                    // const sneakers = products;
+                    resolve(products);
+                }
+            });
+        });
+    }
+
+    const products = await getMostPopularProducts(10);
+    console.log(products);
+    res.render('home', { products });
 }

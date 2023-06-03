@@ -9,6 +9,6 @@ const { validateReview, isLoggedIn, isReviewAuthor } = require('../middleware');
 
 //* HOME routes
 
-router.get('/', home.index);
+router.get('/', catchAsync(home.index));
 
 module.exports = router;

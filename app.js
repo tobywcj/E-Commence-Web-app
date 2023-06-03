@@ -10,7 +10,6 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
-const sneaksAPI = require('sneaks-api');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -43,7 +42,6 @@ db.on("error", console.error.bind(console, "Connection Error:"))
 db.once("open", () => console.log("Database connected successfully\n"));
 
 const app = express();
-const sneaks = new sneaksAPI();
 
 
 app.engine('ejs', ejsMate); // tell Express use this engine instead of the default one

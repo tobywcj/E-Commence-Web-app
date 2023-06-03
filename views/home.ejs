@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="/stylesheets/home.css">
 
 </head>
+
 <body class="d-flex text-center text-white bg-dark">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
@@ -29,6 +31,8 @@
             </div>
         </header>
 
+        <%- include('./partials/flash') %> 
+
         <main class="px-3">
             <h1>Grails</h1>
             <p class="lead"> Welcome to Grails! <br> Jump right in and explore our many shops. <br>
@@ -36,11 +40,35 @@
             <a href="/shops" class="btn btn-lg btn-secondary fw-bold border-white bg-white">View Shops</a>
         </main>
 
+        <div class="row">
+            <% for (let product of products) {%>
+                <div class="card mx-2 mt-3 p-2 col-3">
+                    <% if(product.thumbnail.length) { %>
+                    <img crossorigin="anonymous" class="img-fluid rounded card-img-top" src="<%= product.thumbnail %>" alt="">
+                    <% } else { %>
+                    <img crossorigin="anonymous" class="img-fluid rounded card-img-top" src="https://images.stockx.com/images/Gallery-Dept-Sun-Faded-English-Logo-Hoodie-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1660895550" alt="">
+                    <% } %>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= product.shoeName %></h5>
+                        <p class="card-text fs-3 fw-light">Lowest Ask:</p>
+                        <% const lowestPrice = Object.values(product.lowestResellPrice).reduce((acc, curr) => acc < curr ? acc : curr); %>
+                        <% if(lowestPrice) { %>
+                        <p class="card-text">USD$<%= lowestPrice %></p>
+                        <% } else { %>
+                        <p class="card-text">Not available</p>
+                        <% } %>
+                    </div>
+                </div>  
+            <% } %>
+        </div>
+
+
         <footer class="mt-auto text-white-50">
             <p>&copy; 2023 Grails</p>
         </footer>
         
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
@@ -53,4 +81,5 @@
         crossorigin="anonymous">
     </script>
 </body>
+
 </html>
