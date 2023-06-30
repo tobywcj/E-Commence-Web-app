@@ -72,25 +72,3 @@ seedDB().then(() => {
     db.close();
     console.log('Database connection closed')
 });
-
-
-// <% for (let product of products) {%>
-
-//   <div class="card mt-3 p-2 col-4" style="display: inline">
-//     <% if(product.thumbnail.length) { %>
-//       <img crossorigin="anonymous" class="img-fluid rounded card-img-top" src="<%= product.thumbnail %>" alt="">
-//         <% } else { %>
-//                 <img crossorigin="anonymous" class="img-fluid rounded card-img-top" src="https://images.stockx.com/images/Gallery-Dept-Sun-Faded-English-Logo-Hoodie-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1660895550" alt="">
-//                 <% } %>
-
-//                 <div class="card-body">
-//                     <h5 class="card-title"><%= product.shoeName %></h5>
-//                     <p class="card-text fs-3 fw-light">Lowest Ask</p>
-//                     <p class="card-text">USD$
-//                         <% const lowestPrice = Math.min(...Object.values(product.lowestResellPrice)); %>
-//                         <%= lowestPrice %>
-//                     </p>
-//                 </div>
-//             </div>
-            
-//         <% } %>

@@ -1,6 +1,3 @@
-const sneaksAPI = require('sneaks-api');
-const sneaks = new sneaksAPI();
-
 
 
 module.exports.index = async (req, res) => {
@@ -10,14 +7,13 @@ module.exports.index = async (req, res) => {
                 if (err) {
                     reject(err);
                 } else {
-                    // const sneakers = products;
                     resolve(products);
                 }
             });
         });
     }
 
-    const products = await getMostPopularProducts(10);
-    console.log(products);
+    const products = await getMostPopularProducts(3);
+
     res.render('home', { products });
 }

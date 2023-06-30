@@ -109,7 +109,7 @@
           </form>
       <% } %>
           
-          <h2 class="mb-3">Reviews</h2>
+          <h2 class="my-3">Reviews</h2>
 
           <% for(let review of shop.reviews) {%>
           <div class="card mb-3">
@@ -131,6 +131,10 @@
               <% } %>
             </div>
           </div>
+          <% } %>
+
+          <% if (!currentUser) {%>
+          <p class="fw-bold">Login or Register to leave a Review !</p>
           <% } %>
     </div>
 
