@@ -12,7 +12,12 @@
 
             <div class="mb-3">
                 <label class="form-label" for="category">Category</label>
-                <input class="form-control" type="text" id="category" name="shop[category]" value="<%= shop.category %>" required>
+                <select class="form-select" id="category" name="shop[category]" required>
+                    <% categories.forEach(function(category) { %>
+                    <option value="<%= category %>" <% if (category === shop.category) { %>selected<% } %>><%= category %></option>
+                    <% }) %>
+                </select>
+                
                 <div class="valid-feedback">Right to go !!</div>
             </div>
 

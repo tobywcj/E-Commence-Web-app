@@ -13,7 +13,13 @@
 
             <div class="mb-3">
                 <label class="form-label" for="category">Category</label>
-                <input class="form-control" type="text" id="category" name="shop[category]" required>
+                <select class="form-select" id="category" name="shop[category]" required>
+                    <option value="" selected disabled>Select a category</option>
+                    <% categories.forEach(function(category) { %>
+                    <option value="<%= category %>"><%= category %></option>
+                    <% }) %>
+                </select>
+
                 <div class="valid-feedback">Right to go !!</div>
             </div>
             

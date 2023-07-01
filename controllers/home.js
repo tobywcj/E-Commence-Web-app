@@ -1,3 +1,5 @@
+const sneaksAPI = require('sneaks-api');
+const sneaks = new sneaksAPI();
 
 
 module.exports.index = async (req, res) => {

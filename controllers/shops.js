@@ -9,16 +9,34 @@ const { cloudinary } = require('../cloudinary');
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geoCoder = mbxGeocoding({ accessToken: mapBoxToken });
+const categories = [
+    'Health and wellness',
+    'Fashion and beauty',
+    'Home decor and design',
+    'Technology and gadgets',
+    'Art and culture',
+    'Sustainable living',
+    'Outdoor activities',
+    'Specialty food and drink',
+    'Cafes, lounges, and bars'
+];
 
 
 
 module.exports.index = async (req, res) => {
-    const shops = await Shop.find({});
-    res.render('shops/index', { shops });
+    const { category } = req.query;
+    console.log(category);
+    let shops = await Shop.find({});
+    let selectedCategory = '';
+    if (category && category !== '') {
+        shops = await Shop.find({ category: category });
+        selectedCategory = category;
+    }
+    res.render('shops/index', { shops, categories, selectedCategory });
 }
 
 module.exports.renderNewForm = (req, res) => {
-    res.render('shops/new');
+    res.render('shops/new', { categories });
 }
 
 
@@ -56,7 +74,7 @@ module.exports.renderEditForm = async (req, res) => {
         return res.redirect('/shops'); // return to skip the rest of the code
 
     }
-    res.render('shops/edit', { shop });
+    res.render('shops/edit', { shop, categories });
 }
 
 module.exports.updateShop = async (req, res) => {
