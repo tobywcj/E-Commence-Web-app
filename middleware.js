@@ -1,4 +1,4 @@
-const { shopSchema, reviewSchema } = require('./schemas');
+const { shopSchema, reviewSchema, categorySchema } = require('./schemas');
 const ExpressError = require('./utils/ExpressError');
 const Shop = require('./models/shop');
 const Review = require('./models/review');
@@ -23,6 +23,7 @@ module.exports.storeReturnTo = (req, res, next) => {
 module.exports.validateShop = (req, res, next) => {
     const { error } = shopSchema.validate(req.body);
     if (error) {
+        console.log('\Failed Shop validation\n');
         const msg = error.details.map(el => el.message).join(','); // in case more than one err msg
         throw new ExpressError(msg, 400); // throw new error will directly go to error handler, no next() is needed
     } else {
@@ -34,6 +35,7 @@ module.exports.validateShop = (req, res, next) => {
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
+        console.log('\Failed Review validation\n');
         const msg = error.details.map(el => el.message).join(','); 
         throw new ExpressError(msg, 400);
     } else {
@@ -41,6 +43,20 @@ module.exports.validateReview = (req, res, next) => {
         next();
     }
 }
+
+module.exports.validateCategory = (req, res, next) => {
+    console.log(req.body);
+    const { error } = categorySchema.validate(req.body);
+    if (error) {
+        console.log('\Failed Category validation\n');
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    } else {
+        console.log('\nPassed Category validation\n');
+        next();
+    }
+}
+
 
 module.exports.isAuthor = async (req, res, next) => {
     const { id } = req.params;

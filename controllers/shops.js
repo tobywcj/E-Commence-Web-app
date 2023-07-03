@@ -4,28 +4,32 @@
 // The Controller is acts as an intermediary between the Model and View.It initializes the View, handles user input, and updates the View based on changes to the Model.
 
 const Shop = require('../models/shop');
+const Category = require('../models/category');
+
 const { cloudinary } = require('../cloudinary');
 
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geoCoder = mbxGeocoding({ accessToken: mapBoxToken });
-const categories = [
-    'Health and wellness',
-    'Fashion and beauty',
-    'Home decor and design',
-    'Technology and gadgets',
-    'Art and culture',
-    'Sustainable living',
-    'Outdoor activities',
-    'Specialty food and drink',
-    'Cafes, lounges, and bars'
-];
+// const categories = [
+//     'Health and wellness',
+//     'Fashion and beauty',
+//     'Home decor and design',
+//     'Technology and gadgets',
+//     'Art and culture',
+//     'Sustainable living',
+//     'Outdoor activities',
+//     'Specialty food and drink',
+//     'Cafes, lounges, and bars'
+// ];
 
 
 
 module.exports.index = async (req, res) => {
     const { category } = req.query;
-    console.log(category);
+    const catagory_data = await Category.find({});
+    const categories = catagory_data.map(obj => obj.name);
+    console.log(categories);
     let shops = await Shop.find({});
     let selectedCategory = '';
     if (category && category !== '') {
@@ -35,7 +39,25 @@ module.exports.index = async (req, res) => {
     res.render('shops/index', { shops, categories, selectedCategory });
 }
 
-module.exports.renderNewForm = (req, res) => {
+module.exports.renderNewCategoryForm = async (req, res) => {
+    res.render('shops/newCategory');
+}
+
+module.exports.newCategory = async (req, res, next) => {
+    console.log(req.body.category);
+    const newCategory = new Category(req.body.category);
+    await newCategory.save();
+
+    let shops = await Shop.find({});
+    const catagory_data = await Category.find({});
+    const categories = catagory_data.map(obj => obj.name);
+    let selectedCategory = '';
+    res.render('shops/index', { shops, categories, selectedCategory });
+}
+
+module.exports.renderNewForm = async (req, res) => {
+    const catagory_data = await Category.find({});
+    const categories = catagory_data.map(obj => obj.name);
     res.render('shops/new', { categories });
 }
 
@@ -67,6 +89,8 @@ module.exports.showShop = async (req, res) => {
 }
 
 module.exports.renderEditForm = async (req, res) => {
+    const catagory_data = await Category.find({});
+    const categories = catagory_data.map(obj => obj.name);
     const { id } = req.params;
     const shop = await Shop.findById(id);
     if (!shop) {
@@ -79,10 +103,14 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateShop = async (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
     const shop = await Shop.findByIdAndUpdate(id, { ...req.body.shop });
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     shop.images.push( ...imgs );
+    const geoData = await geoCoder.forwardGeocode({
+        query: req.body.shop.location,
+        limit: 1
+    }).send()
+    shop.geometry = geoData.body.features[0].geometry;
     await shop.save();
     if (req.body.deleteImages) {
         req.body.deleteImages.forEach(async (filename) => {

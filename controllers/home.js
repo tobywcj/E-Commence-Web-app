@@ -15,7 +15,7 @@ module.exports.index = async (req, res) => {
         });
     }
 
-    const products = await getMostPopularProducts(3);
+    const products = await getMostPopularProducts(60);
 
     res.render('home', { products });
 }

@@ -10,6 +10,9 @@
                 <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/shops">Shops</a>
                 <a class="nav-link" href="/shops/new">New Shop</a>
+                <% if (currentUser && currentUser.username === 'chicken') {%>
+                    <a class="nav-link" href="/shops/newCategory">New Category</a>
+                <% } %>
             </div>
             <div class="navbar-nav p-2">
                 <% if(!currentUser) { %>

@@ -43,3 +43,9 @@ module.exports.reviewSchema = joi.object({
         body:joi.string().required().escapeHTML()
     }).required()
 });
+
+module.exports.categorySchema = joi.object({
+    category: joi.object({
+        name: joi.string().required().escapeHTML()
+    }).required()
+});

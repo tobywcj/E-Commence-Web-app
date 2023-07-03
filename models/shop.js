@@ -24,7 +24,7 @@ const shopSchema = new Schema({
         // required: [true, 'Shop Name is required']
     },
     category: {
-        type: String,
+        type: String
     },
     description: {
         type: String,
@@ -57,7 +57,6 @@ const shopSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        format: 'YYYY-MM-DD'
     }
 }, opts);
 

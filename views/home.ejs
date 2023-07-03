@@ -17,7 +17,6 @@
     <div class="container" id="nav-bar">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">Grails</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     <a class="nav-link" href="/shops">Shops</a>
@@ -43,10 +42,11 @@
                 <div><a href="/shops" class="btn btn-lg btn-secondary fw-bold border-white bg-white">View Shops</a></div>
             </section>
 
-            <h1>Trending Now</h1>
+            <h1>Trending Products</h1>
 
             <section id="trending-products" class="d-flex align-items-center justify-content-center">
                 <div class="box">
+
                     <% products.forEach((product, i) => {%>
                         <span id="product-card" class="card mx-2 mt-3 p-2" style="--i:<%= i+1 %>;">
                             <% if(product.thumbnail.length) { %>
@@ -54,65 +54,31 @@
                                 <% } else { %>
                                 <img crossorigin="anonymous" class="img-fluid rounded card-img-top" src="https://images.stockx.com/images/Gallery-Dept-Sun-Faded-English-Logo-Hoodie-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1660895550" alt="">
                             <% } %>
+
                             <div class="card-body">
-                                <h5 class="card-title"><%= product.shoeName %></h5>
-                                <p class="card-text fs-3 fw-light">Lowest Ask:</p>
-                                <% const lowestPrice = Object.values(product.lowestResellPrice).reduce((acc, curr) => acc < curr ? acc : curr); %>
-                                <% if(lowestPrice) { %>
-                                <p class="card-text">USD$<%= lowestPrice %></p>
-                                <% } else { %>
-                                <p class="card-text">Not available</p>
-                                <% } %>
-                            </div>
-                        </span>
-                    <% }) %>
-                </div>
-            </section>
-
-            <% products.forEach((product, i) => {%>
-                <div class="popup-view">
-                    <div id="popup-card" class="card text-center">
-                        <div class="card-header">
-                            <div data-bs-theme="dark">
-                                <button type="button" class="btn-close float-md-end" aria-label="Close"></button>
-                            </div>
-                        </div>
-
-                        <% if(product.thumbnail.length) { %>
-                            <img crossorigin="anonymous" class="img-fluid rounded" src="<%= product.thumbnail %>" alt="">
-                            <% } else { %>
-                            <img crossorigin="anonymous" class="img-fluid rounded" src="https://images.stockx.com/images/Gallery-Dept-Sun-Faded-English-Logo-Hoodie-Black.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1660895550" alt="">
-                        <% } %>
-
-                        <div class="card-body">
-                            <h5 class="card-title fs-2"><%= product.shoeName %></h5>
+                            <h5 class="card-title fs-2 mb-4"><%= product.shoeName %></h5>
                             <div class="d-flex justify-content-center">
                                 <% const lowestPrice = Object.values(product.lowestResellPrice).reduce((acc, curr) => acc < curr ? acc : curr); %></curr>
                                 <% if(lowestPrice) { %>
                                 <p class="card-text fs-5 fw-light me-4">From</p>
-                                <p class="card-text fs-2 me-4">USD$<%= lowestPrice %></p>
+                                <p class="card-text fs-4 me-4">USD$<%= lowestPrice %></p>
                                 <% } else { %>
-                                    <p class="card-text fs-2 me-4">Check</p>
+                                    <p class="card-text fs-5 me-4">Lowest Price </p>
                                 <% } %>
                                 <p class="card-text fs-5 fw-light me-4">on</p>
                                 <% const BestPriceReseller = Object.keys(product.lowestResellPrice).find(reseller => product.lowestResellPrice[reseller] === lowestPrice); %>
-                                <a href="<%= product.resellLinks[BestPriceReseller] %>" class="btn btn-outline-primary fs-2"><%= BestPriceReseller.toUpperCase() %></a>
+                                <a href="<%= product.resellLinks[BestPriceReseller] %>" class="btn btn-outline-primary fs-4"><%= BestPriceReseller.toUpperCase() %></a>
                             </div>
+                            </div>  
+                        </span>
+                    <% }) %>
 
-                            <p class="card-text"><%= product.description %></p>
-
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-
-                        </div>
-                        <div class="card-footer text-body-secondary">
-                            2 days ago
-                        </div>
-                    </div>
                 </div>
-            <% }) %>
+            </section>
 
-            <div><a href="" class="btn btn-lg btn-secondary fw-bold border-white bg-white">See All</a></div>
-            
+            <section>
+                <div></div>
+            </section>
 
         </main>
         

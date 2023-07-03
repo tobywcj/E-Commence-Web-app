@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container 100vw">
+    <div class="row">
+        <h1 class="text-center">New Category</h1>
+    
+        <div class="col-md-6 offset-md-3">
+
+            <% if (currentUser && currentUser.username === 'chicken') {%>
+            <form action="/shops/newCategory" method="POST" class="validated-form my-5" novalidate>
+                <label class="form-label" for="newCategory">New Category</label>
+                <input class="form-control" type="text" id="newCategory" name="category[name]">
+                <div class="valid-feedback">Right to go !!</div> 
+
+                <div class="mt-3">
+                    <button class="btn btn-success">Add New Category</button>
+                </div>
+            </form>
+            <% } %>
+    
+            <footer>
+                <a class="btn btn-outline-info" role="button" href="/shops">Back to All Shops</a>
+            </footer>
+            
+        </div>
+    </div>
+</div>

@@ -39,7 +39,7 @@ const seedDB = async () => {
     }
   
     try { 
-      const sneakers = await getMostPopularSneaker(50);
+      const sneakers = await getMostPopularSneaker(40);
       console.log(`Only return ${sneakers.length} sneakers`);
 
       for (let i = 0; i < sneakers.length ; i++) {
@@ -47,7 +47,7 @@ const seedDB = async () => {
         const shop = new Shop({
           location: `${cities[random1000].city}, ${cities[random1000].state}`,
           name: `${sample(descriptors)} ${sample(places)}`,
-          category: 'Sneakers',
+          category: 'Fashion and beauty',
           description: sneakers[i].description,
           // your user ID
           author:'64529976a82196d2c2a3b0a9',

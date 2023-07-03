@@ -7,7 +7,7 @@ const upload = multer({ storage });
 // const upload = multer({ dest: 'uploads/' }) // for setting the dir to upload files ONLY for testing locally
 
 const catchAsync = require('../utils/catchAsync');
-const { isLoggedIn,  validateShop, isAuthor } = require('../middleware');
+const { isLoggedIn,  validateShop, validateCategory, isAuthor } = require('../middleware');
 const shops = require('../controllers/shops');
 
 
@@ -21,7 +21,13 @@ router.route('/')
     .post(isLoggedIn, upload.array('images'), validateShop, catchAsync(shops.createShop)) // multer responsible to parse and add file and body obj to the req obj, but run after validation, so cant validate at server side without parsing the req obj
 
 // need to put /new before /:id coz express will recognize new as id
-router.get('/new', isLoggedIn, shops.renderNewForm)
+router.route('/new')
+    .get(isLoggedIn, shops.renderNewForm)
+    .post(isLoggedIn, validateCategory, catchAsync(shops.newCategory))
+
+router.route('/newCategory')
+    .get(isLoggedIn, shops.renderNewCategoryForm)
+    .post(isLoggedIn, validateCategory, catchAsync(shops.newCategory))
 
 router.route('/:id')
     .get(catchAsync(shops.showShop))
