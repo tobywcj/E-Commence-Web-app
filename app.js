@@ -103,7 +103,6 @@ passport.deserializeUser(User.deserializeUser()); // converting a serialized use
 // before all the routes, so we can use for every route
 // must be after passport middleware to use req.user
 app.use((req, res, next) => {
-    // console.log(req.query);
     res.locals.currentUser = req.user; // req.user is available in every route ONLY IF in the session
     res.locals.success = req.flash('success'); // success is available in every route
     res.locals.error = req.flash('error'); // error is available in every route

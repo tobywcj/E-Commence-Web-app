@@ -1,12 +1,12 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Grails</a>
+        <a class="navbar-brand fw-bold fs-3" href="/">Grails</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav me-auto p-2">
+            <div class="navbar-nav me-auto p-2 fw-bold fs-4">
                 <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/shops">Shops</a>
                 <a class="nav-link" href="/shops/new">New Shop</a>
@@ -14,7 +14,7 @@
                     <a class="nav-link" href="/shops/newCategory">New Category</a>
                 <% } %>
             </div>
-            <div class="navbar-nav p-2">
+            <div class="navbar-nav p-2 fw-bold fs-4">
                 <% if(!currentUser) { %>
                     <a href="/users/login" class="nav-link">Login</a>
                     <a href="/users/register" class="nav-link">Register</a>

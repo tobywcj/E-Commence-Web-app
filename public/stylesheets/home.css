@@ -2,7 +2,7 @@ body {
     height: 100vh;
     width: 100vw;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        url("https://res.cloudinary.com/dtv2tb97n/image/upload/v1685540896/nasa-lEBDlbXLEgs-unsplash_ihlnrk.jpg");
+        url("https://res.cloudinary.com/dtv2tb97n/image/upload/v1688396035/SneakerApp/nasa-lEBDlbXLEgs-unsplash_k3zoew.jpg");
     background-size: cover;
     background-position: center;
     text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.7);
@@ -40,18 +40,17 @@ body {
 }
 
 main section {
-    min-height: 50vh;
+    min-height: 55vh;
 }
 
-.fade-fromLeft {
+.fade-fromTop {
     opacity: 0;
     filter: blur(5px);
-    transform: translateX(-100%);
+    transform: translateY(-100%);
     transition: all 1s;
 }
-
 @media(prefer-reduced-motion) {
-    .fade-fromLeft {
+    .fade-fromTop {
         transition: none;
     }
 }
@@ -62,17 +61,25 @@ main section {
     transform: translateX(0);
 }
 
-.btn-secondary {
-    color: #040404;
+.btn {
+    /* color: #040404; */
     text-shadow: none;
     transition: box-shadow 0.25s, transform 0.25s;
 }
 
-.btn-secondary:hover {
-    color: #040404;
+.btn:hover {
+    /* color: #040404; */
     text-shadow: none;
     box-shadow: 0 0.5em 0.5em -0.4em #b1e2ca;
     transform: translateY(-0.25em);
+}
+
+#shop_btn {
+    color: #040404;
+}
+
+#shop_btn:hover {
+    color: #040404;
 }
 
 
@@ -80,12 +87,11 @@ main section {
 
 .box {
     position: relative;
-    width: 390px;
+    width: 400px;
     height: 550px;
     transform-style: preserve-3d;
     animation: animate 25s linear infinite;
 }
-
 @keyframes animate {
     0%
     {
@@ -114,4 +120,49 @@ main section {
     box-shadow: 6px 12px 20px 4px #b1e2ca;
     transform: rotateY(calc(var(--i) * 35deg)) translateZ(600px) translateY(-50px) scale(1.1);
     cursor: pointer;
+}
+
+#website-name {
+    font-size: 5em;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 10px #fff,
+                 0 0 20px #fff,
+                 0 0 40px #fff,
+                 0 0 80px #fff,
+                 0 0 120px #fff,
+                 0 0 160px #fff;           
+}
+
+/* trending products animation */
+
+.container {
+    position: relative;
+}
+
+.container .trending-animation {
+    transform-style: preserve-3d;
+    animation: trending_animate 15s linear infinite;
+}
+@keyframes trending_animate {
+    0% {
+        transform: perspective(100000px) rotateX(0deg);
+    }
+
+    100% {
+        transform: perspective(100000px) rotateX(360deg);
+    }
+}
+
+.container .trending-animation span {
+    position: absolute;
+    color: #fff;
+    font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height:0.76em;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    transform: translate(-50%,-50%) rotateX(calc(var(--i) * 90deg)) translateZ(80px);
+    background: rgba(0, 0, 0, 0.25);
+    transform-style: preserve-3d;
 }

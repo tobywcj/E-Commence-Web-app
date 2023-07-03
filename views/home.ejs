@@ -35,20 +35,36 @@
 
     <div class="container-fluid">
         <main class="px-3">
-            <section id="intro" class="fade-fromLeft d-flex flex-column justify-content-center">
-                <h1>Grails</h1>
-                <p class="lead"> Welcome to Grails! <br> Jump right in and explore our many shops. <br>
-                    Feel free to share some of your own and comment on others!</p>
-                <div><a href="/shops" class="btn btn-lg btn-secondary fw-bold border-white bg-white">View Shops</a></div>
+            <section id="intro" class="fade-fromTop d-flex flex-column justify-content-center">
+                <h1 id="website-name">Grails</h1>
+                <p class="lead fw-bold"> Welcome to Grails! <br> Jump right in and explore go-to shops in every country. <br>
+                    Feel free to share some of your own and comment on others' fav shops! <br>
+                    <span class="fs-4">Scroll Down</span> to see the latest Trending Products</p>
+                <div><a href="/shops" id="shop_btn" class="btn btn-lg btn-secondary fs-3 fw-bold border-white bg-white">View Shops</a></div>
             </section>
 
-            <h1>Trending Products</h1>
+            <div class="row mb-5">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2 container d-flex justify-content-center align-items-center">
+                    <div class="trending-animation">
+                        <span style="--i:1;">Trending_Products</span>
+                        <span style="--i:2;">Trending_Products</span>
+                        <span style="--i:3;">Trending_Products</span>
+                        <span style="--i:4;">Trending_Products</span>
+                    </div>
+                </div>
+
+                <form method="get" action="/" class="col-lg-5 mb-5 pt-5">
+                        <input type="hidden" name="load" value=" ">
+                        <button type="submit" class="btn btn-lg fs-3 fw-bold btn-outline-secondary mt-5">Load More</button>
+                </form>
+            </div>
 
             <section id="trending-products" class="d-flex align-items-center justify-content-center">
                 <div class="box">
 
                     <% products.forEach((product, i) => {%>
-                        <span id="product-card" class="card mx-2 mt-3 p-2" style="--i:<%= i+1 %>;">
+                        <span id="product-card" class="card mx-2 mt-5 p-2" style="--i:<%= i+1 %>;">
                             <% if(product.thumbnail.length) { %>
                                 <img crossorigin="anonymous" class="img-fluid rounded card-img-top" src="<%= product.thumbnail %>" alt="">
                                 <% } else { %>
@@ -82,8 +98,10 @@
 
         </main>
         
-        <footer class="mt-auto text-white-50">
-            <p>&copy; 2023 Grails</p>
+        <footer class="footer bg-dark py-3 mt-auto"> 
+            <div class="container">
+                <span class="text-secondary">&copy; Grails 2023</span>
+            </div>
         </footer>
     </div>
         

@@ -11,17 +11,6 @@ const { cloudinary } = require('../cloudinary');
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geoCoder = mbxGeocoding({ accessToken: mapBoxToken });
-// const categories = [
-//     'Health and wellness',
-//     'Fashion and beauty',
-//     'Home decor and design',
-//     'Technology and gadgets',
-//     'Art and culture',
-//     'Sustainable living',
-//     'Outdoor activities',
-//     'Specialty food and drink',
-//     'Cafes, lounges, and bars'
-// ];
 
 
 

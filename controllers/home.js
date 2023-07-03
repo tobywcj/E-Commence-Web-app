@@ -1,6 +1,8 @@
 const sneaksAPI = require('sneaks-api');
 const sneaks = new sneaksAPI();
 
+let limit = 60;
+
 
 module.exports.index = async (req, res) => {
     function getMostPopularProducts(limit) {
@@ -14,8 +16,16 @@ module.exports.index = async (req, res) => {
             });
         });
     }
+    
+    if (req.query.load) {
+        limit += 12;
+    } else {
+        limit = 60;
+    }
+    const total_products = await getMostPopularProducts(limit);
+    console.log(`loaded ${limit}`);
+    console.log("total products returned: ",total_products.length);
+    const products = total_products.slice(-12);
 
-    const products = await getMostPopularProducts(60);
-
-    res.render('home', { products });
+    res.render('home', { products, limit});
 }

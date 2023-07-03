@@ -9,6 +9,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 });
 
-const hiddenElements = document.querySelectorAll('.fade-fromLeft');
+const hiddenElements = document.querySelectorAll('.fade-fromTop');
 hiddenElements.forEach((el) => observer.observe(el));
 
