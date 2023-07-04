@@ -20,6 +20,17 @@ https://github.com/tobywcj/Grail-Shops/assets/71925079/df20eacd-39af-4e10-bccf-5
 - Map embedded on each campground page.
 
 
+
+https://github.com/tobywcj/Grail-Shops/assets/71925079/c6e8752a-255c-457f-be1f-9525f9a6ae6b
+
+
+
+https://github.com/tobywcj/Grail-Shops/assets/71925079/ae8e27dd-a5ca-4cc6-98df-d4bd8092c28f
+
+
+
+
+
 ## Design and Architecture
 ### Code Architecture
 For this project, I used a Model-View-Controller (MVC) Monolithic Architecture, as it is the most straightforward architecture for gaining an introduction to full-stack web development. A Monolithic Architecture provides a good perspective on the range of architectures, especially on the lower end of the spectrum. However, it falls short in scalability and separation of front-end and back-end. The MVC Architecture also becomes inadequate as the application grows in complexity with additional services that could stand on their own. Therefore, it is best suited for simple proof-of-concept projects like this one. 
