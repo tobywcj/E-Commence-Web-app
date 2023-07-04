@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate'); // run and parse ejs
 const methodOverride = require('method-override');
 const morgan = require('morgan');
-const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -17,6 +16,7 @@ const helmet = require('helmet');
 
 const ExpressError = require('./utils/ExpressError');
 const User = require('./models/user');
+
 
 // Organise routes
 const homeRoutes = require('./routes/home');
@@ -28,8 +28,14 @@ const reviewRoutes = require('./routes/reviews');
 const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, imgSrcUrls, fontSrcUrls } = require('./utils/Urls');
 
 
+// Mongo DB
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/SneakerApp'; 
+
+const session = require('express-session');
+// const MongoStore = require('connect-mongo');
+
 mongoose.set('strictQuery', true); // ensure that only the fields that are specified in your schema will be saved in the database
-mongoose.connect('mongodb://localhost:27017/SneakerApp', { 
+mongoose.connect(dbUrl, {  
     autoIndex: false, // Don't build indexes
     maxPoolSize: 10, // Maintain up to 10 socket connections
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
@@ -72,8 +78,21 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public'))); // use the public folder to serve static files like images, css, js, etc.
 
 
+// const store = MongoStore.create({
+//     mongoUrl: dbUrl,
+//     touchAfter: 24 * 60 * 60,
+//     crypto: {
+//         secret: 'thisshouldnotbesecret'
+//     }
+// });
+
+// store.on("error", function (e) {
+//     console.log("Session Store Error", e)
+// })
+
 // session middleware
 const sessionConfig = {
+    //store,
     name: 'session', // name of the cookies
     secret: 'thisshouldnotbesecret', // secret is used to encrypt the session cookie
     resave: false, // resave = false means that if the session is not modified, then it won't be saved again
@@ -130,6 +149,7 @@ app.use((err, req, res, next) => {
 })
 
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`);
 })

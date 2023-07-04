@@ -14,7 +14,7 @@ module.exports.register = async (req, res) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             console.log('\nRegistered new user\n');
-            req.flash('success', 'Welcome to Sneakers World!\n');
+            req.flash('success', 'Welcome to Grails!\n');
             res.redirect('/'); 
         })
     } catch (err) {

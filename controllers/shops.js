@@ -18,7 +18,7 @@ module.exports.index = async (req, res) => {
     const { category } = req.query;
     const catagory_data = await Category.find({});
     const categories = catagory_data.map(obj => obj.name);
-    console.log(categories);
+    // console.log(categories);
     let shops = await Shop.find({});
     let selectedCategory = '';
     if (category && category !== '') {

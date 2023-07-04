@@ -118,7 +118,7 @@ main section {
 
 .box span:hover {
     box-shadow: 6px 12px 20px 4px #b1e2ca;
-    transform: rotateY(calc(var(--i) * 35deg)) translateZ(600px) translateY(-50px) scale(1.1);
+    transform: rotateY(calc(var(--i) * 30deg)) translateZ(1000px) translateY(-50px) scale(1.1);
     cursor: pointer;
 }
 
