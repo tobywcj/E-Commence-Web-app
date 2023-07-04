@@ -1,5 +1,9 @@
 # Grail Shops
 
+
+https://github.com/tobywcj/Grail-Shops/assets/71925079/40dfd1a4-7a38-4bf9-80fa-53615dbf68cb
+
+
 ## About
 This is my first full-stack web application, which serves as a review website for exploring special shops from around the world and discovering the latest trendy products imported from Sneaks-API. The application features login, sign-up, Admin role, Mapbox API integration, and Create, Edit, Update, and Delete (CRUD) functionality for campgrounds, comments, and reviews. Create routes require authentication, and Edit, Update, and Delete routes require authentication and authorization. The initial foundation for this project was built during the capstone project of The Web Developer Bootcamp on Udemy.
 
