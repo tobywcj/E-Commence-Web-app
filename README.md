@@ -1,7 +1,8 @@
 # Grail Shops
 
 
-https://github.com/tobywcj/Grail-Shops/assets/71925079/40dfd1a4-7a38-4bf9-80fa-53615dbf68cb
+https://github.com/tobywcj/Grail-Shops/assets/71925079/241d7b07-58af-41d9-a779-eed3e1689896
+
 
 
 ## About
