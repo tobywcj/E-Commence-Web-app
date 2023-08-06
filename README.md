@@ -1,4 +1,4 @@
-# Grail Shops
+# Grail Shops (Javascript + Node.JS + MongoDB)
 
 
 https://github.com/tobywcj/Grail-Shops/assets/71925079/241d7b07-58af-41d9-a779-eed3e1689896
